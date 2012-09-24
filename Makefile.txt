@@ -1,0 +1,17 @@
+CC=g++
+CFLAGS=-c -Wall `pkg-config opencv --cflags`
+LDFLAGS= `pkg-config opencv --libs`
+SOURCES=main.cpp matching.cpp fuzzylogic.cpp leastsquares.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=stabilizer
+
+all: $(SOURCES) $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -rf *.o $(EXECUTABLE)
